@@ -14,9 +14,8 @@
   --wrong-bg: rgba(201, 76, 76, 0.1);
   --radius: 12px;
   --radius-lg: 20px;
-  --font-display: 'Vercetti', 'Georgia', serif;
-  --font-arabic: 'Amiri', 'Traditional Arabic', serif;
-  --font-body: 'Georgia', serif;
+  --font: 'DM Sans', sans-serif;
+  --font-arabic: 'Noto Naskh Arabic', sans-serif;
   --transition: 0.2s ease;
 }
 
@@ -50,10 +49,11 @@ html {
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: var(--font-body);
+  font-family: var(--font);
   min-height: 100vh;
   transition: background var(--transition), color var(--transition);
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
 #root {
@@ -62,37 +62,15 @@ body {
   flex-direction: column;
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--gold-border); border-radius: 3px; }
 
-/* Typography */
 h1, h2, h3, h4 {
-  font-family: var(--font-display);
-  letter-spacing: 0.02em;
+  font-family: var(--font);
+  font-weight: 600;
   line-height: 1.2;
 }
 
-/* Utility */
 .gold { color: var(--gold); }
-.muted { color: var(--text-muted); }
-
-/* Gold divider ornament */
-.ornament {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: var(--gold);
-  font-size: 1.1rem;
-}
-.ornament::before,
-.ornament::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(to right, transparent, var(--gold-border));
-}
-.ornament::after {
-  background: linear-gradient(to left, transparent, var(--gold-border));
-}
+.muted { color: var(--text-muted); opacity: 0.5; }

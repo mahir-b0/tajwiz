@@ -20,7 +20,7 @@ export default function Results({ results }) {
     ? { label: 'Very Good', msg: 'Great work, almost there!' }
     : pct >= 60
     ? { label: 'Good', msg: 'Good effort. Keep revising!' }
-    : { label: 'Keep Revising', msg: 'Don\'t give up — repetition is key.' }
+    : { label: 'Keep Revising', msg: 'Don\'t give up - repetition is key.' }
 
   return (
     <main className="results-page">

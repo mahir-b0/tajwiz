@@ -36,7 +36,7 @@
 
 .results-grade {
   font-size: 2.4rem;
-  letter-spacing: 0.04em;
+  
 }
 
 .score-circle {
@@ -47,7 +47,7 @@
 }
 
 .score-num {
-  font-family: var(--font-display);
+  font-family: var(--font);
   font-size: 4.5rem;
   color: var(--gold);
   line-height: 1;
@@ -59,16 +59,16 @@
 }
 
 .score-total {
-  font-family: var(--font-display);
+  font-family: var(--font);
   font-size: 2.5rem;
   color: var(--text-muted);
 }
 
 .score-pct {
-  font-family: var(--font-display);
+  font-family: var(--font);
   font-size: 1.1rem;
   color: var(--text-muted);
-  letter-spacing: 0.1em;
+  
 }
 
 .grade-msg {
@@ -85,7 +85,7 @@
 
 .review-title {
   font-size: 1.3rem;
-  letter-spacing: 0.05em;
+  
 }
 
 .review-list {
@@ -188,9 +188,9 @@
 }
 
 .action-btn {
-  font-family: var(--font-display);
+  font-family: var(--font);
   font-size: 1rem;
-  letter-spacing: 0.07em;
+  
   padding: 14px 40px;
   border-radius: var(--radius);
   cursor: pointer;

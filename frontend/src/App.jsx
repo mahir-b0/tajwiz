@@ -7,14 +7,20 @@ import Results from './pages/Results'
 
 export default function App() {
   const [theme, setTheme] = useState('dark')
-  const [quizData, setQuizData] = useState(null)   // questions from API
-  const [results, setResults] = useState(null)      // answers + score
+  const [quizData, setQuizData] = useState(null)
+  const [results, setResults] = useState(null)
+
+  const toggleTheme = () => {
+    setTheme(t => {
+      const next = t === 'dark' ? 'light' : 'dark'
+      document.documentElement.setAttribute('data-theme', next)
+      return next
+    })
+  }
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
-  }, [theme])
-
-  const toggleTheme = () => setTheme(t => t === 'dark' ? 'light' : 'dark')
+  }, [])
 
   return (
     <BrowserRouter>
