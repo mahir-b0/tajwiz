@@ -1,4 +1,3 @@
-# Tajwiz
 ![tajwiz logo](frontend/public/tajwiz_logo_dark.png)
 
 A tajweed revision quiz app for beginners. 
