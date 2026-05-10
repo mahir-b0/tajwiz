@@ -17,5 +17,7 @@ npm install
 npm run dev
 ```
 
+Feel free to add questions, add categories, or make any bug fixes (there's probably a lot)
+
 ## Disclaimer
 I am by no means a sheikh/a'lim, just trying to do my very very small part in giving back to the Muslim community, if I have made a mistake in any of the questions, I ask for your forgiveness
