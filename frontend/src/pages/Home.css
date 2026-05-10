@@ -1,0 +1,226 @@
+.home {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 60px 24px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 52px;
+}
+
+/* Hero */
+.home-hero {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hero-arabic {
+  font-family: var(--font-arabic);
+  font-size: 1.6rem;
+  color: var(--gold);
+  letter-spacing: 0.03em;
+  line-height: 1.8;
+}
+
+.hero-title {
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  color: var(--text);
+  letter-spacing: 0.04em;
+}
+
+.hero-sub {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}
+
+/* Sections */
+.home-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.section-title {
+  font-size: 1.3rem;
+  letter-spacing: 0.05em;
+  color: var(--text);
+  text-align: center;
+}
+
+/* Topics grid */
+.topics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  width: 100%;
+}
+
+.topic-card {
+  background: var(--bg-card);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius-lg);
+  padding: 20px 18px;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: all 0.2s ease;
+  position: relative;
+  color: var(--text);
+}
+
+.topic-card:hover {
+  border-color: var(--gold);
+  background: var(--bg-elevated);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 24px rgba(201, 168, 76, 0.1);
+}
+
+.topic-card.selected {
+  border-color: var(--gold);
+  background: var(--gold-dim);
+  box-shadow: 0 0 0 1px var(--gold), 0 4px 24px rgba(201, 168, 76, 0.15);
+}
+
+.topic-check {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--gold-border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  color: var(--gold);
+  background: var(--bg);
+  transition: all 0.2s;
+}
+
+.topic-card.selected .topic-check {
+  background: var(--gold);
+  color: #000000;
+  border-color: var(--gold);
+  font-weight: bold;
+}
+
+.topic-arabic {
+  font-family: var(--font-arabic);
+  font-size: 1.2rem;
+  color: var(--gold);
+  direction: rtl;
+}
+
+.topic-label {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0.03em;
+}
+
+.topic-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Count control */
+.count-control {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.count-btn {
+  background: none;
+  border: 1px solid var(--gold-border);
+  color: var(--gold);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  line-height: 1;
+}
+
+.count-btn:hover {
+  background: var(--gold-dim);
+  border-color: var(--gold);
+}
+
+.count-value {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  color: var(--gold);
+  min-width: 60px;
+  text-align: center;
+}
+
+.count-slider {
+  width: 100%;
+  max-width: 400px;
+  accent-color: var(--gold);
+  cursor: pointer;
+  height: 4px;
+}
+
+.count-label {
+  font-size: 0.85rem;
+}
+
+/* Start */
+.start-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.start-btn {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  padding: 16px 60px;
+  background: var(--gold);
+  color: #000000;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+}
+
+.start-btn:hover:not(:disabled) {
+  background: var(--gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(201, 168, 76, 0.3);
+}
+
+.start-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.start-meta {
+  font-size: 0.9rem;
+}
+
+.error-msg {
+  color: var(--wrong);
+  text-align: center;
+  font-size: 0.95rem;
+  padding: 12px;
+  border: 1px solid var(--wrong);
+  border-radius: var(--radius);
+  background: var(--wrong-bg);
+  max-width: 400px;
+  margin: 0 auto;
+}

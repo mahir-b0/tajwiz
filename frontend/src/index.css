@@ -1,0 +1,98 @@
+:root {
+  --bg: #000000;
+  --bg-card: #000000;
+  --bg-elevated: #000000;
+  --text: #ffffff;
+  --text-muted: #ffffff;
+  --gold: #c9a84c;
+  --gold-light: #e8c97a;
+  --gold-dim: rgba(201, 168, 76, 0.12);
+  --gold-border: rgba(201, 168, 76, 0.4);
+  --correct: #4caf82;
+  --wrong: #c94c4c;
+  --correct-bg: rgba(76, 175, 130, 0.1);
+  --wrong-bg: rgba(201, 76, 76, 0.1);
+  --radius: 12px;
+  --radius-lg: 20px;
+  --font-display: 'Vercetti', 'Georgia', serif;
+  --font-arabic: 'Amiri', 'Traditional Arabic', serif;
+  --font-body: 'Georgia', serif;
+  --transition: 0.2s ease;
+}
+
+[data-theme="light"] {
+  --bg: #ffffff;
+  --bg-card: #ffffff;
+  --bg-elevated: #ffffff;
+  --text: #000000;
+  --text-muted: #000000;
+  --gold: #a07820;
+  --gold-light: #c49a30;
+  --gold-dim: rgba(160, 120, 32, 0.1);
+  --gold-border: rgba(160, 120, 32, 0.35);
+  --correct: #4caf82;
+  --wrong: #c94c4c;
+  --correct-bg: rgba(76, 175, 130, 0.1);
+  --wrong-bg: rgba(201, 76, 76, 0.1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  transition: background var(--transition), color var(--transition);
+  line-height: 1.6;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--gold-border); border-radius: 3px; }
+
+/* Typography */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+/* Utility */
+.gold { color: var(--gold); }
+.muted { color: var(--text-muted); }
+
+/* Gold divider ornament */
+.ornament {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--gold);
+  font-size: 1.1rem;
+}
+.ornament::before,
+.ornament::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold-border));
+}
+.ornament::after {
+  background: linear-gradient(to left, transparent, var(--gold-border));
+}
