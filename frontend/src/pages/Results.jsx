@@ -15,17 +15,16 @@ export default function Results({ results }) {
   const pct = Math.round((score / total) * 100)
 
   const grade = pct === 100
-    ? { label: 'Excellent', arabic: 'ممتاز', msg: 'Mashaa\'Allah! Perfect score!' }
+    ? { label: 'Excellent', msg: 'Allahumma barik! Perfect score!' }
     : pct >= 80
-    ? { label: 'Very Good', arabic: 'جيد جداً', msg: 'Great work! Almost there.' }
+    ? { label: 'Very Good', msg: 'Great work, almost there!' }
     : pct >= 60
-    ? { label: 'Good', arabic: 'جيد', msg: 'Good effort. Keep revising!' }
-    : { label: 'Keep Revising', arabic: 'راجع مرة أخرى', msg: 'Don\'t give up — repetition is key.' }
+    ? { label: 'Good', msg: 'Good effort. Keep revising!' }
+    : { label: 'Keep Revising', msg: 'Don\'t give up — repetition is key.' }
 
   return (
     <main className="results-page">
       <div className="results-card">
-        <p className="results-arabic">{grade.arabic}</p>
         <h1 className="results-grade">{grade.label}</h1>
         <div className="score-circle">
           <span className="score-num">{score}</span>

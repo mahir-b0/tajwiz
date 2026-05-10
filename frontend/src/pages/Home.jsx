@@ -1,19 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { TOPICS, generateQuiz } from '../questions.js'
 import './Home.css'
-
-const API = import.meta.env.VITE_API_URL || 'http://localhost:8000'
-
-const TOPICS = [
-  { id: 'noon_sakinah', label: 'Noon Sakinah', arabic: 'النون الساكنة', desc: 'Ithaar, Idghaam, Iqlaab, Ikhfaa' },
-  { id: 'qalqalah', label: 'Qalqalah', arabic: 'القلقلة', desc: 'Letters, Kubra & Sughra' },
-  { id: 'waqf', label: 'Waqf Signs', arabic: 'علامات الوقف', desc: 'Stop, continue & pause signs' }
-]
 
 export default function Home({ setQuizData }) {
   const [selected, setSelected] = useState([])
   const [count, setCount] = useState(10)
-  const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const navigate = useNavigate()
 
@@ -23,28 +15,15 @@ export default function Home({ setQuizData }) {
     )
   }
 
-  const startQuiz = async () => {
+  const startQuiz = () => {
     if (selected.length === 0) {
       setError('Please select at least one topic.')
       return
     }
     setError('')
-    setLoading(true)
-    try {
-      const res = await fetch(`${API}/quiz`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ topics: selected, count }),
-      })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.detail || 'Failed to generate quiz')
-      setQuizData(data.questions)
-      navigate('/quiz')
-    } catch (e) {
-      setError(e.message || 'Could not connect to the server.')
-    } finally {
-      setLoading(false)
-    }
+    const questions = generateQuiz(selected, count)
+    setQuizData(questions)
+    navigate('/quiz')
   }
 
   return (
@@ -52,11 +31,11 @@ export default function Home({ setQuizData }) {
       <header className="home-hero">
         <p className="hero-arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
         <h1 className="hero-title">Test Your Tajweed</h1>
+        <p className="hero-sub">Select your topics, set the number of questions, and begin.</p>
       </header>
 
       <section className="home-section">
-        
-        <h2 className="section-title">Topics</h2>
+        <h2 className="section-title">Choose Topics</h2>
         <div className="topics-grid">
           {TOPICS.map(topic => (
             <button
@@ -74,7 +53,6 @@ export default function Home({ setQuizData }) {
       </section>
 
       <section className="home-section">
-        
         <h2 className="section-title">Number of Questions</h2>
         <div className="count-control">
           <button className="count-btn" onClick={() => setCount(c => Math.max(1, c - 1))}>−</button>
@@ -98,9 +76,9 @@ export default function Home({ setQuizData }) {
         <button
           className="start-btn"
           onClick={startQuiz}
-          disabled={loading || selected.length === 0}
+          disabled={selected.length === 0}
         >
-          {loading ? 'Generating...' : 'Begin Quiz'}
+          Begin Quiz
         </button>
         {selected.length > 0 && (
           <p className="start-meta muted">
