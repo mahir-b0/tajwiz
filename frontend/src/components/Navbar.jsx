@@ -1,5 +1,4 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { supabase } from '../supabase'
+import { Link, useLocation } from 'react-router-dom'
 import './Navbar.css'
 
 const SunIcon = () => (
@@ -30,12 +29,6 @@ const GitHubIcon = () => (
 
 export default function Navbar({ theme, toggleTheme, user }) {
   const location = useLocation()
-  const navigate = useNavigate()
-
-  const handleSignOut = async () => {
-    await supabase.auth.signOut()
-    navigate('/')
-  }
 
   return (
     <nav className="navbar">
@@ -60,9 +53,9 @@ export default function Navbar({ theme, toggleTheme, user }) {
           {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
         </button>
         {user ? (
-          <button className="nav-icon-btn user-btn" onClick={handleSignOut} aria-label="Sign out" title={`Signed in as ${user.email}\nClick to sign out`}>
+          <Link to="/stats" className="nav-icon-btn user-btn" title={user.email}>
             {user.email[0].toUpperCase()}
-          </button>
+          </Link>
         ) : (
           <Link to="/auth" className="nav-signin-btn">Sign In</Link>
         )}

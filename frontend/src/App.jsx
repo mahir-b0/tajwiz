@@ -7,12 +7,14 @@ import Quiz from './pages/Quiz'
 import Results from './pages/Results'
 import Learn from './pages/Learn'
 import Auth from './pages/Auth'
+import Stats from './pages/Stats'
 
 export default function App() {
   const [theme, setTheme] = useState('dark')
   const [quizData, setQuizData] = useState(null)
   const [results, setResults] = useState(null)
   const [user, setUser] = useState(null)
+  const [authReady, setAuthReady] = useState(false)
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
@@ -21,10 +23,11 @@ export default function App() {
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null)
+      setAuthReady(true)
     })
-
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null)
+      setAuthReady(true)
     })
     return () => subscription.unsubscribe()
   }, [])
@@ -37,6 +40,8 @@ export default function App() {
     })
   }
 
+  if (!authReady) return null
+
   return (
     <BrowserRouter>
       <Navbar theme={theme} toggleTheme={toggleTheme} user={user} />
@@ -46,6 +51,7 @@ export default function App() {
         <Route path="/quiz" element={<Quiz quizData={quizData} setResults={setResults} user={user} />} />
         <Route path="/results" element={<Results results={results} />} />
         <Route path="/auth" element={<Auth />} />
+        <Route path="/stats" element={<Stats user={user} />} />
       </Routes>
     </BrowserRouter>
   )

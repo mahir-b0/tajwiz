@@ -8,28 +8,34 @@
 
 .auth-card {
   width: 100%;
-  max-width: 420px;
+  max-width: 400px;
   background: var(--bg-card);
   border: 1px solid var(--gold-border);
   border-radius: var(--radius-lg);
   padding: 40px 36px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 20px;
+  text-align: center;
 }
 
 .auth-arabic {
   font-family: var(--font-arabic);
   font-size: 1.4rem;
   color: var(--gold);
-  text-align: center;
   direction: rtl;
 }
 
 .auth-title {
   font-size: 1.8rem;
   font-weight: 600;
-  text-align: center;
+}
+
+.auth-sub {
+  font-size: 0.9rem;
+  opacity: 0.5;
+  line-height: 1.5;
 }
 
 .google-btn {
@@ -38,7 +44,7 @@
   justify-content: center;
   gap: 10px;
   width: 100%;
-  padding: 12px;
+  padding: 13px;
   background: var(--bg);
   border: 1px solid var(--gold-border);
   border-radius: var(--radius);
@@ -55,110 +61,7 @@
   background: var(--gold-dim);
 }
 
-.auth-divider {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: var(--text);
-  opacity: 0.3;
-  font-size: 0.85rem;
-}
-
-.auth-divider::before,
-.auth-divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--gold-border);
-}
-
-.auth-fields {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.auth-input {
-  width: 100%;
-  padding: 12px 16px;
-  background: var(--bg);
-  border: 1px solid var(--gold-border);
-  border-radius: var(--radius);
-  color: var(--text);
-  font-family: var(--font);
-  font-size: 0.95rem;
-  outline: none;
-  transition: border-color var(--transition);
-}
-
-.auth-input:focus {
-  border-color: var(--gold);
-}
-
-.auth-input::placeholder {
-  opacity: 0.4;
-}
-
-.auth-error {
-  font-size: 0.88rem;
-  color: var(--wrong);
-  background: var(--wrong-bg);
-  border: 1px solid var(--wrong);
-  border-radius: var(--radius);
-  padding: 10px 14px;
-}
-
-.auth-message {
-  font-size: 0.88rem;
-  color: var(--correct);
-  background: var(--correct-bg);
-  border: 1px solid var(--correct);
-  border-radius: var(--radius);
-  padding: 10px 14px;
-}
-
-.auth-submit {
-  width: 100%;
-  padding: 13px;
-  background: var(--gold);
-  color: #000000;
-  border: none;
-  border-radius: var(--radius);
-  font-family: var(--font);
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all var(--transition);
-}
-
-.auth-submit:hover:not(:disabled) {
-  background: var(--gold-light);
-}
-
-.auth-submit:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-.auth-switch {
-  text-align: center;
-  font-size: 0.88rem;
-  opacity: 0.6;
-}
-
-.auth-switch-btn {
-  background: none;
-  border: none;
-  color: var(--gold);
-  font-family: var(--font);
-  font-size: 0.88rem;
-  cursor: pointer;
-  text-decoration: underline;
-  opacity: 1;
-}
-
 .auth-guest {
-  text-align: center;
   font-size: 0.88rem;
   color: var(--text);
   opacity: 0.4;

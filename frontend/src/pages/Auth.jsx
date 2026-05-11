@@ -1,55 +1,23 @@
-import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { supabase } from '../supabase'
 import './Auth.css'
 
 export default function Auth() {
-  const [mode, setMode] = useState('signin')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
-  const [message, setMessage] = useState('')
   const navigate = useNavigate()
 
-  const handleSubmit = async () => {
-    setError('')
-    setMessage('')
-    setLoading(true)
-    try {
-      if (mode === 'signup') {
-        const { data, error } = await supabase.auth.signUp({ email, password })
-        if (error) throw error
-
-        if (data.user) {
-          await supabase.from('profiles').insert({ id: data.user.id })
-        }
-        setMessage('Check your email for a confirmation link.')
-      } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password })
-        if (error) throw error
-        navigate('/')
-      }
-    } catch (e) {
-      setError(e.message)
-    } finally {
-      setLoading(false)
-    }
-  }
-
   const handleGoogle = async () => {
-    setError('')
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: { redirectTo: window.location.origin },
     })
-    if (error) setError(error.message)
+    if (error) alert(error.message)
   }
 
   return (
     <main className="auth-page">
       <div className="auth-card">
-        <h1 className="auth-title">{mode === 'signin' ? 'Sign In' : 'Create Account'}</h1>
+        <h1 className="auth-title">Sign In</h1>
+        <p className="auth-sub">Sign in to track your progress, streaks, and accuracy across topics.</p>
 
         <button className="google-btn" onClick={handleGoogle}>
           <svg width="18" height="18" viewBox="0 0 24 24">
@@ -60,41 +28,6 @@ export default function Auth() {
           </svg>
           Continue with Google
         </button>
-
-        <div className="auth-divider"><span>or</span></div>
-
-        <div className="auth-fields">
-          <input
-            className="auth-input"
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            onKeyDown={e => e.key === 'Enter' && handleSubmit()}
-          />
-          <input
-            className="auth-input"
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            onKeyDown={e => e.key === 'Enter' && handleSubmit()}
-          />
-        </div>
-
-        {error && <p className="auth-error">{error}</p>}
-        {message && <p className="auth-message">{message}</p>}
-
-        <button className="auth-submit" onClick={handleSubmit} disabled={loading || !email || !password}>
-          {loading ? 'Loading...' : mode === 'signin' ? 'Sign In' : 'Sign Up'}
-        </button>
-
-        <p className="auth-switch">
-          {mode === 'signin' ? "Don't have an account? " : 'Already have an account? '}
-          <button className="auth-switch-btn" onClick={() => { setMode(mode === 'signin' ? 'signup' : 'signin'); setError(''); setMessage('') }}>
-            {mode === 'signin' ? 'Sign Up' : 'Sign In'}
-          </button>
-        </p>
 
         <Link to="/" className="auth-guest">Continue as guest →</Link>
       </div>
