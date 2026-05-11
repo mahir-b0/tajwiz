@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { supabase } from '../supabase'
 import './Quiz.css'
 
-export default function Quiz({ quizData, setResults }) {
+export default function Quiz({ quizData, setResults, user }) {
   const [current, setCurrent] = useState(0)
   const [selected, setSelected] = useState(null)
   const [revealed, setRevealed] = useState(false)
@@ -10,9 +11,7 @@ export default function Quiz({ quizData, setResults }) {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!quizData || quizData.length === 0) {
-      navigate('/')
-    }
+    if (!quizData || quizData.length === 0) navigate('/')
   }, [quizData])
 
   if (!quizData || quizData.length === 0) return null
@@ -26,15 +25,47 @@ export default function Quiz({ quizData, setResults }) {
     setRevealed(true)
   }
 
-  const next = () => {
-    const newAnswers = [...answers, {
-      question: q,
-      chosen: selected,
-      correct: selected === q.answer,
-    }]
+  const saveAttempt = async (question, correct) => {
+    if (!user) return
+    await supabase.from('attempts').insert({
+      user_id: user.id,
+      question_id: question.id,
+      topic: question.id.split('_').slice(0, -1).join('_') || question.id.replace(/[0-9]/g, '').replace(/^(ns|ql|wq)/, m => ({ ns: 'noon_sakinah', ql: 'qalqalah', wq: 'waqf' }[m])),
+      correct,
+    })
+  }
+
+  const updateStreak = async () => {
+    if (!user) return
+    const today = new Date().toISOString().split('T')[0]
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('streak_count, last_played_date')
+      .eq('id', user.id)
+      .single()
+
+    if (!profile) return
+
+    const last = profile.last_played_date
+    const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0]
+
+    let newStreak = profile.streak_count
+    if (last === today) return 
+    else if (last === yesterday) newStreak += 1
+    else newStreak = 1 
+
+    await supabase.from('profiles').update({ streak_count: newStreak, last_played_date: today }).eq('id', user.id)
+  }
+
+  const next = async () => {
+    const correct = selected === q.answer
+    await saveAttempt(q, correct)
+
+    const newAnswers = [...answers, { question: q, chosen: selected, correct }]
     setAnswers(newAnswers)
 
     if (isLast) {
+      await updateStreak()
       const score = newAnswers.filter(a => a.correct).length
       setResults({ answers: newAnswers, score, total: quizData.length })
       navigate('/results')
@@ -45,33 +76,25 @@ export default function Quiz({ quizData, setResults }) {
     }
   }
 
-  const progress = ((current) / quizData.length) * 100
+  const progress = (current / quizData.length) * 100
 
   return (
     <main className="quiz-page">
-      {/* Progress */}
       <div className="progress-bar-wrap">
         <div className="progress-bar" style={{ width: `${progress}%` }} />
       </div>
       <div className="quiz-meta">
         <span className="muted">Question {current + 1} of {quizData.length}</span>
-        <span className="quiz-score-track muted">
-          {answers.filter(a => a.correct).length} correct
-        </span>
+        <span className="quiz-score-track muted">{answers.filter(a => a.correct).length} correct</span>
       </div>
 
-      {/* Arabic word card */}
       <div className="word-card">
         <div className="word-display">{q.word}</div>
-        {q.transliteration && (
-          <p className="word-translit">{q.transliteration}</p>
-        )}
+        {q.transliteration && <p className="word-translit">{q.transliteration}</p>}
       </div>
 
-      {/* Question text */}
       <p className="question-text">{q.question}</p>
 
-      {/* Options */}
       <div className="options-grid">
         {q.options.map((option) => {
           let cls = 'option-btn'
@@ -80,15 +103,8 @@ export default function Quiz({ quizData, setResults }) {
             else if (option === selected) cls += ' wrong'
             else cls += ' dimmed'
           }
-          if (selected === option && !revealed) cls += ' chosen'
-
           return (
-            <button
-              key={option}
-              className={cls}
-              onClick={() => choose(option)}
-              disabled={revealed}
-            >
+            <button key={option} className={cls} onClick={() => choose(option)} disabled={revealed}>
               <span className="option-indicator" />
               {option}
             </button>
@@ -96,7 +112,6 @@ export default function Quiz({ quizData, setResults }) {
         })}
       </div>
 
-      {/* Explanation */}
       {revealed && (
         <div className={`explanation ${selected === q.answer ? 'correct-bg' : 'wrong-bg'}`}>
           <span className="explanation-icon">{selected === q.answer ? '✓' : '✗'}</span>
@@ -104,7 +119,6 @@ export default function Quiz({ quizData, setResults }) {
         </div>
       )}
 
-      {/* Next */}
       {revealed && (
         <div className="next-wrap">
           <button className="next-btn" onClick={next}>

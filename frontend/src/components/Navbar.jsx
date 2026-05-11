@@ -1,4 +1,5 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { supabase } from '../supabase'
 import './Navbar.css'
 
 const SunIcon = () => (
@@ -27,8 +28,14 @@ const GitHubIcon = () => (
   </svg>
 )
 
-export default function Navbar({ theme, toggleTheme }) {
+export default function Navbar({ theme, toggleTheme, user }) {
   const location = useLocation()
+  const navigate = useNavigate()
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut()
+    navigate('/')
+  }
 
   return (
     <nav className="navbar">
@@ -39,17 +46,26 @@ export default function Navbar({ theme, toggleTheme }) {
           className="logo-img"
         />
       </Link>
+
       <div className="navbar-center">
         <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>Quiz</Link>
         <Link to="/learn" className={`nav-link ${location.pathname === '/learn' ? 'active' : ''}`}>Learn</Link>
       </div>
+
       <div className="navbar-actions">
-        <a href="https://github.com/mahir-b0/tajwiz" target="_blank" rel="noopener noreferrer" className="nav-icon-btn" aria-label="GitHub repository">
+        <a href="https://github.com/mahir-b0/tajwiz" target="_blank" rel="noopener noreferrer" className="nav-icon-btn" aria-label="GitHub">
           <GitHubIcon />
         </a>
         <button className="nav-icon-btn" onClick={toggleTheme} aria-label="Toggle theme">
           {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
         </button>
+        {user ? (
+          <button className="nav-icon-btn user-btn" onClick={handleSignOut} aria-label="Sign out" title={`Signed in as ${user.email}\nClick to sign out`}>
+            {user.email[0].toUpperCase()}
+          </button>
+        ) : (
+          <Link to="/auth" className="nav-signin-btn">Sign In</Link>
+        )}
       </div>
     </nav>
   )
