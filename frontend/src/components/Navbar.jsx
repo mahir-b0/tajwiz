@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import './Navbar.css'
 
 const SunIcon = () => (
@@ -28,6 +28,8 @@ const GitHubIcon = () => (
 )
 
 export default function Navbar({ theme, toggleTheme }) {
+  const location = useLocation()
+
   return (
     <nav className="navbar">
       <Link to="/" className="navbar-logo">
@@ -37,14 +39,12 @@ export default function Navbar({ theme, toggleTheme }) {
           className="logo-img"
         />
       </Link>
+      <div className="navbar-center">
+        <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>Quiz</Link>
+        <Link to="/learn" className={`nav-link ${location.pathname === '/learn' ? 'active' : ''}`}>Learn</Link>
+      </div>
       <div className="navbar-actions">
-        <a
-          href="https://github.com/mahir-b0/tajwiz"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="nav-icon-btn"
-          aria-label="GitHub repository"
-        >
+        <a href="https://github.com/mahir-b0/tajwiz" target="_blank" rel="noopener noreferrer" className="nav-icon-btn" aria-label="GitHub repository">
           <GitHubIcon />
         </a>
         <button className="nav-icon-btn" onClick={toggleTheme} aria-label="Toggle theme">

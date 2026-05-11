@@ -4,6 +4,7 @@ import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import Quiz from './pages/Quiz'
 import Results from './pages/Results'
+import Learn from './pages/Learn'
 
 export default function App() {
   const [theme, setTheme] = useState('dark')
@@ -27,6 +28,7 @@ export default function App() {
       <Navbar theme={theme} toggleTheme={toggleTheme} />
       <Routes>
         <Route path="/" element={<Home setQuizData={setQuizData} />} />
+        <Route path="/learn" element={<Learn />} />
         <Route path="/quiz" element={<Quiz quizData={quizData} setResults={setResults} />} />
         <Route path="/results" element={<Results results={results} />} />
       </Routes>
