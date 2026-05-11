@@ -548,12 +548,12 @@ const questions = {
   waqf: [
     {
       id: "wq1",
-      word: "م",
+      word: "مـ",
       transliteration: "Meem (Waqf sign)",
-      question: "What does the waqf sign م indicate?",
+      question: "What does the waqf sign مـ indicate?",
       options: ["Compulsory stop", "Compulsory join", "Preferred stop", "Permissible stop"],
       answer: "Compulsory stop",
-      explanation: "م (Waqf Laazim) - you must stop here. Continuing would change the meaning",
+      explanation: "مـ (Waqf Laazim) - you must stop here. Continuing would change the meaning",
     },
     {
       id: "wq2",
@@ -572,24 +572,6 @@ const questions = {
       options: ["Permissible stop", "Compulsory stop", "Do not stop", "Continuing preferred"],
       answer: "Permissible stop",
       explanation: "ج (Waqf Jaa'iz) - stopping or continuing are both acceptable",
-    },
-    {
-      id: "wq4",
-      word: "ط",
-      transliteration: "Taa (Waqf sign)",
-      question: "What does the waqf sign ط indicate?",
-      options: ["Stopping preferred", "Do not stop", "Compulsory stop", "Slight pause only"],
-      answer: "Stopping preferred",
-      explanation: "ط (Waqf Mutlaq) - stopping here is preferred",
-    },
-    {
-      id: "wq5",
-      word: "ص",
-      transliteration: "Saad (Waqf sign)",
-      question: "What does the waqf sign ص indicate?",
-      options: ["Permissible to stop briefly", "Compulsory stop", "Must continue", "Stopping preferred"],
-      answer: "Permissible to stop briefly",
-      explanation: "ص (Waqf Murakhkhas) - you may stop briefly if out of breath, but better to continue",
     },
     {
       id: "wq6",
@@ -620,22 +602,13 @@ const questions = {
     },
     {
       id: "wq9",
-      word: "زـ",
-      transliteration: "Zaay (Waqf sign)",
-      question: "What does the waqf sign ز indicate?",
-      options: ["Continuing is preferred", "Stopping is preferred", "Compulsory stop", "Do not stop"],
-      answer: "Continuing is preferred",
-      explanation: "ز (Waqf Mujawwaz) - continuing is better, though stopping is permitted",
-    },
-    {
-      id: "wq10",
-      word: "وقف ممنوع",
-      transliteration: "Waqf Mamnoo",
-      question: "Which waqf sign means you absolutely must NOT stop?",
-      options: ["لا", "م", "ج", "ط"],
-      answer: "لا",
-      explanation: "لا (Waqf Mamnoo) is the sign that forbids stopping - continuing is obligatory",
-    },
+      word: "سـ",
+      transliteration: "Seen (sakt)",
+      question: "What does the sakt sign س indicate?",
+      options: ["Pause briefly without breathing", "Stop and breathe", "Continue without stopping", "Compulsory stop"],
+      answer: "Pause briefly without breathing",
+      explanation: "س (Sakt) - pause very briefly without taking a breath, then continue.",
+    }
   ],
 }
 
