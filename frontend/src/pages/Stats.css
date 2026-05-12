@@ -30,7 +30,6 @@
   font-weight: 600;
 }
 
-/* Top stats */
 .stats-top {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -60,14 +59,31 @@
   line-height: 1;
 }
 
-.stat-icon {
-  font-size: 1.2rem;
-}
-
 .stat-label {
   font-size: 0.82rem;
   opacity: 0.5;
   font-weight: 500;
+}
+
+.streak-cold {
+  color: #5aaeea;
+  text-shadow: 0 0 6px #5aaeea55, 0 0 14px #1e78c233;
+}
+
+.streak-hot {
+  background: linear-gradient(180deg, #fff5a0 0%, #ffb830 40%, #ff5500 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 8px #ff7a0088) drop-shadow(0 0 20px #ff3c0055);
+  animation: flicker 1.4s ease-in-out infinite alternate;
+}
+
+@keyframes flicker {
+  0%   { filter: drop-shadow(0 0 6px #ff9900aa) drop-shadow(0 0 18px #ff3c0055); }
+  33%  { filter: drop-shadow(0 0 10px #ffb300cc) drop-shadow(0 0 28px #ff550077); }
+  66%  { filter: drop-shadow(0 0 7px #ff7700bb) drop-shadow(0 0 20px #ff2200aa); }
+  100% { filter: drop-shadow(0 0 12px #ffcc00dd) drop-shadow(0 0 32px #ff440088); }
 }
 
 /* Topic stats */

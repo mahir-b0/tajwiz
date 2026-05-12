@@ -22,13 +22,11 @@ export default function Stats({ user }) {
 
   const fetchStats = async () => {
     setLoading(true)
-
     const { data: profileData } = await supabase
       .from('profiles')
       .select('streak_count, last_played_date')
       .eq('id', user.id)
       .single()
-
     setProfile(profileData)
 
     const { data: attempts } = await supabase
@@ -59,6 +57,9 @@ export default function Stats({ user }) {
     return profile.last_played_date === today || profile.last_played_date === yesterday
   }
 
+  const streakCount = profile?.streak_count ?? 0
+  const streakClass = streakCount === 0 ? 'cold' : isStreakAlive() ? 'hot' : 'cold'
+
   if (loading) return (
     <main className="stats-page">
       <p className="stats-loading">Loading your stats...</p>
@@ -72,11 +73,9 @@ export default function Stats({ user }) {
         <h1 className="stats-title">Your Progress</h1>
       </header>
 
-      {/* Top stats */}
       <div className="stats-top">
         <div className="stat-card">
-          <span className="stat-value">{profile?.streak_count ?? 0}</span>
-          <span className="stat-icon">{isStreakAlive() ? '🔥' : '💤'}</span>
+          <span className={`stat-value streak-${streakClass}`}>{streakCount}</span>
           <span className="stat-label">Day Streak</span>
         </div>
         <div className="stat-card">
@@ -89,7 +88,6 @@ export default function Stats({ user }) {
         </div>
       </div>
 
-      {/* Per topic */}
       <section className="stats-section">
         <h2 className="stats-section-title">By Topic</h2>
         <div className="topic-stats">
